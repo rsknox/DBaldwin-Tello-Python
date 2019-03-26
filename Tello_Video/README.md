@@ -120,8 +120,22 @@ With Windows,you can create a project through visual studio, add files in h264de
 
 ## DroneBlocks
 
-It's possible to get the video feed in Python while sending commands using the DroneBlocks Chrome App. Please follow the steps below to get this working:
+It's possible to get the video feed in Python while sending commands using the [DroneBlocks Chrome App](https://chrome.google.com/webstore/detail/droneblocks/nbfahmffcopanponfpkefngbijhbnffa?hl=en-US). Please follow the steps below to get this working:
 
-1. Test
+1. Before connecting to the Tello network download DroneBlocks for Chrome at the link above and launch the app.
+
+2. Power up Tello
+
+3. Connect to the Tello network
+
+4. Connect the DroneBlocks Chrome App to Tello
+
+5. Run the Python script using: 
+
+```
+python main.py
+```
+
+You will now have a video feed in Python and the ability to program DroneBlocks missions side by side.
 
 
