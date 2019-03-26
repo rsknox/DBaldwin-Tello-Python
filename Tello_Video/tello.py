@@ -34,17 +34,17 @@ class Tello:
         self.tello_address = (tello_ip, tello_port)
         self.local_video_port = 11111  # port for receiving video stream
         self.last_height = 0
-        self.socket.bind((local_ip, local_port))
+        #self.socket.bind((local_ip, local_port))
 
         # thread for receiving cmd ack
-        self.receive_thread = threading.Thread(target=self._receive_thread)
-        self.receive_thread.daemon = True
+        #self.receive_thread = threading.Thread(target=self._receive_thread)
+        #self.receive_thread.daemon = True
 
-        self.receive_thread.start()
+        #self.receive_thread.start()
 
         # to receive video -- send cmd: command, streamon
-        self.socket.sendto(b'command', self.tello_address)
-        print ('sent: command')
+        #self.socket.sendto(b'command', self.tello_address)
+        #print ('sent: command')
         self.socket.sendto(b'streamon', self.tello_address)
         print ('sent: streamon')
 
