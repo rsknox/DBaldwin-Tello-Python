@@ -3,6 +3,9 @@ import threading
 import time
 import numpy as np
 import libh264decoder
+from facedetector import FaceDetector
+import imutils
+import cv2
 
 class Tello:
     """Wrapper class to interact with the Tello drone."""
@@ -21,6 +24,8 @@ class Tello:
         :param tello_port (int): Tello port.
         """
 
+        # construct the face detector
+        self.faceDetector = FaceDetector("./cascades/haarcascade_frontalface_default.xml")
         self.abort_flag = False
         self.decoder = libh264decoder.H264Decoder()
         self.command_timeout = command_timeout
@@ -67,7 +72,21 @@ class Tello:
         if self.is_freeze:
             return self.last_frame
         else:
-            return self.frame
+            return self.trackFace()
+
+    def trackFace(self):
+
+        if self.frame is not None:
+
+            frame2 = imutils.resize(self.frame, width = 300)
+            gray = cv2.cvtColor(frame2, cv2.COLOR_BGR2GRAY)
+            faceRects = self.faceDetector.detect(gray, scaleFactor = 1.1, minNeighbors = 5, minSize = (30, 30))
+            frameClone = frame2.copy()
+
+            for (fX, fY, fW, fH) in faceRects:
+                cv2.rectangle(frameClone, (fX, fY), (fX + fW, fY + fH), (0, 255, 0), 2)
+
+            return frameClone
 
     def video_freeze(self, is_freeze=True):
         """Pause video output -- set is_freeze to True"""
